@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "05fd808f-67ca-4953-8fa9-3a63ee82db0f",
+		"name": "naves",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30786722"
+	},
+	"item": [
+		{
+			"name": "findAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{navesEndpoint}}",
+					"host": [
+						"{{navesEndpoint}}"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "WING",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "0",
+							"disabled": true
+						},
+						{
+							"key": "size",
+							"value": "10",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{navesEndpoint}}/1",
+					"host": [
+						"{{navesEndpoint}}"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"NAVE DE PRUEBA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{navesEndpoint}}",
+					"host": [
+						"{{navesEndpoint}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"NAVE DE PRUEBA ACTUALIZADA\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{navesEndpoint}}/21",
+					"host": [
+						"{{navesEndpoint}}"
+					],
+					"path": [
+						"21"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{navesEndpoint}}/21",
+					"host": [
+						"{{navesEndpoint}}"
+					],
+					"path": [
+						"21"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
