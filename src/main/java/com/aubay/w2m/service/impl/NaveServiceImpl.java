@@ -2,6 +2,10 @@ package com.aubay.w2m.service.impl;
 
 import java.util.Optional;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -13,11 +17,13 @@ import com.aubay.w2m.dto.NaveRequestDto;
 import com.aubay.w2m.exception.NaveNotFoundException;
 import com.aubay.w2m.model.Nave;
 import com.aubay.w2m.service.INaveService;
+import com.aubay.w2m.util.W2MConstant;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
+@CacheConfig(cacheNames = { W2MConstant.CACHE_NAVES })
 public class NaveServiceImpl implements INaveService {
 
 	private final INaveDao naveDao;
@@ -51,6 +57,7 @@ public class NaveServiceImpl implements INaveService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@Cacheable
 	public Nave getNave(final String id) {
 		return findNaveById(id);
 	}
@@ -68,6 +75,7 @@ public class NaveServiceImpl implements INaveService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@CachePut(value = W2MConstant.CACHE_NAVES, key = W2MConstant.CACHE_NAVES_KEY)
 	public Nave update(final String id, final NaveRequestDto req) {
 		Nave nave = findNaveById(id);
 		nave.setNombre(req.getNombre());
@@ -79,6 +87,7 @@ public class NaveServiceImpl implements INaveService {
 	 * {@inheritDoc}
 	 */
 	@Override
+	@CacheEvict(value = W2MConstant.CACHE_NAVES, key = W2MConstant.CACHE_NAVES_KEY)
 	public void delete(final String id) {
 		final Nave nave = findNaveById(id);
 
