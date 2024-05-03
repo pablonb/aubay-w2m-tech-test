@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 import com.aubay.w2m.dao.INaveDao;
 import com.aubay.w2m.dto.NaveListResponseDto;
 import com.aubay.w2m.dto.NaveRequestDto;
+import com.aubay.w2m.exception.IdentificadorNoValidoException;
 import com.aubay.w2m.exception.NaveNotFoundException;
 import com.aubay.w2m.model.Nave;
 import com.aubay.w2m.service.INaveService;
 import com.aubay.w2m.util.W2MConstant;
+import com.aubay.w2m.util.W2MUtil;
 
 import lombok.RequiredArgsConstructor;
 
@@ -58,7 +60,7 @@ public class NaveServiceImpl implements INaveService {
 	 */
 	@Override
 	@Cacheable
-	public Nave getNave(final String id) {
+	public Nave getNave(final String id) throws IdentificadorNoValidoException {
 		return findNaveById(id);
 	}
 
@@ -76,8 +78,8 @@ public class NaveServiceImpl implements INaveService {
 	 */
 	@Override
 	@CachePut(value = W2MConstant.CACHE_NAVES, key = W2MConstant.CACHE_NAVES_KEY)
-	public Nave update(final String id, final NaveRequestDto req) {
-		Nave nave = findNaveById(id);
+	public Nave update(final String id, final NaveRequestDto req) throws IdentificadorNoValidoException {
+		final Nave nave = findNaveById(id);
 		nave.setNombre(req.getNombre());
 
 		return naveDao.save(nave);
@@ -88,7 +90,7 @@ public class NaveServiceImpl implements INaveService {
 	 */
 	@Override
 	@CacheEvict(value = W2MConstant.CACHE_NAVES, key = W2MConstant.CACHE_NAVES_KEY)
-	public void delete(final String id) {
+	public void delete(final String id) throws IdentificadorNoValidoException {
 		final Nave nave = findNaveById(id);
 
 		naveDao.deleteById(nave.getId());
@@ -99,9 +101,13 @@ public class NaveServiceImpl implements INaveService {
 	 * 
 	 * @param id Identificador del registro a recuperar
 	 * @return Informacion de una nave
+	 * @throws IdentificadorNoValidoException Error convirtiendo el identificador a
+	 *                                        Long
 	 */
-	private Nave findNaveById(final String id) {
-		return naveDao.findById(Long.valueOf(id)).orElseThrow(NaveNotFoundException::new);
+	private Nave findNaveById(final String id) throws IdentificadorNoValidoException {
+		final Long auxId = W2MUtil.validarID(id);
+
+		return naveDao.findById(auxId).orElseThrow(NaveNotFoundException::new);
 	}
 
 }
