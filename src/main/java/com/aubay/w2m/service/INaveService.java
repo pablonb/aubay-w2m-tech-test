@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import com.aubay.w2m.dto.NaveListResponseDto;
 import com.aubay.w2m.dto.NaveRequestDto;
+import com.aubay.w2m.exception.IdentificadorNoValidoException;
 import com.aubay.w2m.model.Nave;
 
 public interface INaveService {
@@ -23,8 +24,10 @@ public interface INaveService {
 	 * 
 	 * @param id Identificador del registro a recuperar
 	 * @return Informacion de una nave
+	 * @throws IdentificadorNoValidoException Error convirtiendo el identificador a
+	 *                                        Long
 	 */
-	Nave getNave(final String id);
+	Nave getNave(final String id) throws IdentificadorNoValidoException;
 
 	/**
 	 * Creacion de un registro
@@ -40,14 +43,18 @@ public interface INaveService {
 	 * @param id  Identificador del registro a actualizar
 	 * @param req Datos de entrada
 	 * @return Registro actualizado
+	 * @throws IdentificadorNoValidoException Error convirtiendo el identificador a
+	 *                                        Long
 	 */
-	Nave update(final String id, final NaveRequestDto req);
+	Nave update(final String id, final NaveRequestDto req) throws IdentificadorNoValidoException;
 
 	/**
 	 * Elimina un registro
 	 * 
 	 * @param id Identificador del registro a eliminar
+	 * @throws IdentificadorNoValidoException Error convirtiendo el identificador a
+	 *                                        Long
 	 */
-	void delete(final String id);
+	void delete(final String id) throws IdentificadorNoValidoException;
 
 }
