@@ -24,7 +24,7 @@ import com.aubay.w2m.util.W2MConstant;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/api/v1/naves")
+@RequestMapping(W2MConstant.API_ENDPOINT)
 @RequiredArgsConstructor
 public class NaveController {
 
