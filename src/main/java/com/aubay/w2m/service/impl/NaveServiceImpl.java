@@ -38,7 +38,7 @@ public class NaveServiceImpl implements INaveService {
 		final Pageable pageable = PageRequest.of(page, size);
 		Page<Nave> navesPage;
 
-		if (query.isPresent()) {
+		if (query.isPresent() && !query.get().isEmpty() && !query.get().isBlank()) {
 			navesPage = naveDao.findByNombreContains(query.get(), pageable);
 		} else {
 			navesPage = naveDao.findAll(pageable);
