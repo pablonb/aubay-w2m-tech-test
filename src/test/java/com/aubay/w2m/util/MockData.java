@@ -8,6 +8,8 @@ import com.aubay.w2m.dto.NaveRequestDto;
 import com.aubay.w2m.model.Nave;
 
 public class MockData {
+	
+	public static final String EMPTY = "";
 
 	public static final String NAVE_ID = "1";
 	public static final String NAVE_NOMBRE = "X-WING BLACK ONE";
@@ -23,6 +25,7 @@ public class MockData {
 
 	public static final String EXPECTED_ID = "$.id";
 	public static final String EXPECTED_NOMBRE = "$.nombre";
+	public static final String EXPECTED_NAVES_SIZE = "$.naves.size()";
 
 	public static final Nave NAVE = new Nave(Long.valueOf(NAVE_ID), NAVE_NOMBRE);
 	public static final NaveRequestDto NAVE_DTO = new NaveRequestDto(MockData.NAVE_NOMBRE);

@@ -59,7 +59,7 @@ class NaveControllerTest {
 
 		mockMvc.perform(MockMvcRequestBuilders.get(W2MConstant.API_ENDPOINT)
 				.queryParam(MockData.PARAM_QUERY, MockData.NAVE_QUERY).accept(MediaType.APPLICATION_JSON))
-				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath("$.naves.size()",
+				.andExpect(status().isOk()).andExpect(MockMvcResultMatchers.jsonPath(MockData.EXPECTED_NAVES_SIZE,
 						CoreMatchers.is(naveListResponseDto.getNaves().size())));
 	}
 
